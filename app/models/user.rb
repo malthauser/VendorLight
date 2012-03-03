@@ -26,7 +26,8 @@ class User < ActiveRecord::Base
   has_many :vendor_relationships, dependent: :destroy
   has_many :vendors, through: :vendor_relationships
 
-  validates_presence_of :first_name, :last_name
+  validates :first_name, :last_name, :email, presence: true
+  validates :email, uniqueness: true
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
