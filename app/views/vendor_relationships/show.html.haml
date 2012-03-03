@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @vendor_relationship.user_id
+%p
+  %b Vendor:
+  = @vendor_relationship.vendor_id
+%p
+  %b Note:
+  = @vendor_relationship.note
+
+= link_to 'Edit', edit_vendor_relationship_path(@vendor_relationship)
+\|
+= link_to 'Back', vendor_relationships_path

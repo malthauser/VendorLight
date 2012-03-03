@@ -1,0 +1,2 @@
+module VendorRelationshipsHelper
+end

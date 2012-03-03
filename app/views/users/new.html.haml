@@ -1,0 +1,20 @@
+.row
+  .span1 &nbsp;
+  .span10
+    %h1 Add a Vendor!
+  .span1 &nbsp;
+.row
+  .span1 &nbsp;
+  .span10
+    =form_for @vendor do |f|
+      = f.label :company
+      = f.text_field :company_name
+      = f.fields_for :product do |p|
+        = p.label :product
+        = p.text_field :name
+        = p.label :cost
+        = p.text_field :cost
+        = p.label :per
+        = p.text_field :cost
+  .span1 &nbsp;
+

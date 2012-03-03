@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: product_vendor_relationships
+#
+#  id                     :integer(4)      not null, primary key
+#  product_id             :integer(4)
+#  vendor_relationship_id :integer(4)
+#  billing_date           :date
+#  billing_cycle_quantity :integer(4)
+#  billing_cycle_unit     :integer(4)
+#  created_at             :datetime        not null
+#  updated_at             :datetime        not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  product_id: 1
+  vendor_relationship_id: 1
+  billing_date: 2012-03-03
+  billing_cycle_quantity: 1
+  billing_cycle_unit: 1
+
+two:
+  product_id: 1
+  vendor_relationship_id: 1
+  billing_date: 2012-03-03
+  billing_cycle_quantity: 1
+  billing_cycle_unit: 1

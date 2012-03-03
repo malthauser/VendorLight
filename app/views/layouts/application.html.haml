@@ -19,7 +19,6 @@
     %link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}/
     %link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}/
 
-
   %body
     .navbar.navbar-fixed-top
       .navbar-inner
@@ -58,7 +57,20 @@
                       = link_to 'Sign Out', destroy_user_session_path, :method => :delete
 
     .container
-
+      .row
+        .span12
+          - if flash[:notice].present?
+            .alert.alert-block.alert-success
+              %a.close{:data => { :dismiss => 'alert' }} x
+              = flash[:notice]
+          - if flash[:alert].present?
+            .alert.alert-block
+              %a.close{:data => { :dismiss => 'alert' }} x
+              = flash[:alert]
+          - if flash[:error].present?
+            .alert.alert-error.alert-block
+              %a.close{:data => { :dismiss => 'alert' }} x
+              = flash[:error]
       .content
         .row
           .span12

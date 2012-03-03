@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Product:
+  = @product_vendor_relationship.product_id
+%p
+  %b Vendor relationship:
+  = @product_vendor_relationship.vendor_relationship_id
+%p
+  %b Billing date:
+  = @product_vendor_relationship.billing_date
+%p
+  %b Billing cycle quantity:
+  = @product_vendor_relationship.billing_cycle_quantity
+%p
+  %b Billing cycle unit:
+  = @product_vendor_relationship.billing_cycle_unit
+
+= link_to 'Edit', edit_product_vendor_relationship_path(@product_vendor_relationship)
+\|
+= link_to 'Back', product_vendor_relationships_path

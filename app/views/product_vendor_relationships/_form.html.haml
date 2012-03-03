@@ -1,0 +1,25 @@
+= form_for @product_vendor_relationship do |f|
+  -if @product_vendor_relationship.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@product_vendor_relationship.errors.count, "error")} prohibited this product_vendor_relationship from being saved:"
+      %ul
+        - @product_vendor_relationship.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :product_id
+    = f.number_field :product_id
+  .field
+    = f.label :vendor_relationship_id
+    = f.number_field :vendor_relationship_id
+  .field
+    = f.label :billing_date
+    = f.date_select :billing_date
+  .field
+    = f.label :billing_cycle_quantity
+    = f.number_field :billing_cycle_quantity
+  .field
+    = f.label :billing_cycle_unit
+    = f.number_field :billing_cycle_unit
+  .actions
+    = f.submit 'Save'

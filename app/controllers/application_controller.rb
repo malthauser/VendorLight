@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate_user!
-  layout 'application'
+
+  def after_sign_in_path_for(resource)
+    return stored_location_for(resource) || welcome_user_path(current_user)
+  end
 end

@@ -1,0 +1,23 @@
+%h1 Listing vendor_relationships
+
+%table
+  %tr
+    %th User
+    %th Vendor
+    %th Note
+    %th
+    %th
+    %th
+
+  - @vendor_relationships.each do |vendor_relationship|
+    %tr
+      %td= vendor_relationship.user_id
+      %td= vendor_relationship.vendor_id
+      %td= vendor_relationship.note
+      %td= link_to 'Show', vendor_relationship
+      %td= link_to 'Edit', edit_vendor_relationship_path(vendor_relationship)
+      %td= link_to 'Destroy', vendor_relationship, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Vendor relationship', new_vendor_relationship_path

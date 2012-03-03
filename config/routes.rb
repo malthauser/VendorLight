@@ -1,7 +1,21 @@
 VendorLight::Application.routes.draw do
-  devise_for :users
+  resources :product_vendor_relationships
+
+  resources :vendor_relationships
+
+  resources :products
+
+  devise_for :users, path: 'accounts'
   resource :home, only: [:show]
   root to: 'home#show'
+
+  match '/invite/(:email)' => 'invitations#invite', :as => 'invite'
+
+  resources :users, only: [:new, :create] do 
+    member do
+      get 'welcome'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
