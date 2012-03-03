@@ -7,14 +7,27 @@
   .span1 &nbsp;
   .span10
     =form_for @vendor do |f|
-      = f.label :company
-      = f.text_field :company_name
-      = f.fields_for :product do |p|
-        = p.label :product
-        = p.text_field :name
+      = f.label :company_name
+      = f.text_field :company_name, placeholder: 'as it appears on your invoice'
+      = f.fields_for :products do |p|
+        = p.label :name, 'Product'
+        = p.text_field :name, placeholder: 'ex: hosting, email campaign, consulting, etc.'
         = p.label :cost
-        = p.text_field :cost
-        = p.label :per
-        = p.text_field :cost
+        = p.text_field :cost, placeholder: '$'
+        = p.fields_for :product_vendor_relationships do |g|
+          = g.label :last_payment
+          = g.text_field :billing_date, class: 'date-picker', value: Time.now.strftime('%m/%d/%Y')
+          %span.add-on
+            %i.icon-th
+          = g.label :billing_cycle_quantity
+          = g.select 'billing_cycle_quantity', ProductVendorRelationship.BILLING_CYCLE_UNIT.to_a, { :include_blank => true }
+      = f.label :contact
+      = f.text_field :email, placeholder: 'email address'
+      = f.text_field :first_name, placeholder: 'first name'
+      = f.text_field :last_name, placeholder: 'last name'
+      = f.fields_for :vendor_relationships do |g|
+        = g.label :note
+        = g.text_field :note
+      %div
+        = f.submit 'Submit!', class: 'btn btn-primary'
   .span1 &nbsp;
-

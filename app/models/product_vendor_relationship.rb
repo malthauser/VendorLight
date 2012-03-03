@@ -15,4 +15,25 @@
 class ProductVendorRelationship < ActiveRecord::Base
   belongs_to :product
   belongs_to :vendor_relationship
+
+  validates :billing_cycle_quantity, numericality: { :only_integer => true }
+
+  cattr_reader :BILLING_CYCLE_UNIT
+  @@BILLING_CYCLE_UNIT = { daily: 1, weekly: 2, monthly: 3, yearly: 4 } 
+
+  @@BILLING_CYCLE_UNIT.each_key do |unit|
+    define_method (unit.to_s + '?').to_sym do
+      self.read_attribute(:billing_cycle_unit) == @@BILLING_CYCLE_UNIT[unit]
+    end
+  end
+
+  def billing_cycle_unit
+    unit = read_attribute(:billing_cycle_unit)
+    @@BILLING_CYCLE_UNIT.each_pair do |key, val|
+      if val == unit
+        return key.to_s
+      end
+      return nil
+    end
+  end
 end

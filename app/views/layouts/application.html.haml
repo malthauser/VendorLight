@@ -70,7 +70,11 @@
           - if flash[:error].present?
             .alert.alert-error.alert-block
               %a.close{:data => { :dismiss => 'alert' }} x
-              = flash[:error]
+              %h3 The following error(s) occured:
+              %ul 
+                - flash[:error].each do |error|
+                  %li= error
+
       .content
         .row
           .span12

@@ -16,6 +16,8 @@ class Product < ActiveRecord::Base
   has_many :product_vendor_relationships
   has_many :vendor_relationships, through: :product_vendor_relationships
 
+  accepts_nested_attributes_for :product_vendor_relationships
+
   validates :cost, numericality: true
   validates :name, presence: true
 end
