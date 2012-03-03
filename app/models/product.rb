@@ -13,5 +13,9 @@
 
 class Product < ActiveRecord::Base
   belongs_to :user
-  has_many :vendor_relationships
+  has_many :product_vendor_relationships
+  has_many :vendor_relationships, through: :product_vendor_relationships
+
+  validates :cost, numericality: true
+  validates :name, presence: true
 end
