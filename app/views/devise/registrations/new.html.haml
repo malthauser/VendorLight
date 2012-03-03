@@ -1,0 +1,21 @@
+.row.margin-top-40
+  .span4 &nbsp;
+  .span4.well
+    %h2 Register for VendorLight!
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+      = devise_error_messages!
+      = f.label :first_name
+      = f.text_field :first_name
+      = f.label :last_name
+      = f.text_field :last_name
+      = f.label :email
+      = f.email_field :email
+      = f.label :password
+      = f.password_field :password
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+      = f.label :company
+      = f.text_field :company_name
+      %div= f.submit "Sign up", class: 'btn btn-primary'
+    = render "links"
+  .span4 &nbsp;

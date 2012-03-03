@@ -1,0 +1,17 @@
+defaults: &defaults
+  adapter: mysql2
+  encoding: utf8
+  username:
+  password:
+
+development:
+  <<: *defaults
+  database: vendor_light_development
+
+test:
+  <<: *defaults
+  database: vendor_light_test
+
+cucumber:
+  <<: *defaults
+  database: vendor_light_test
