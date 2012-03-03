@@ -21,8 +21,4 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def invite_new_user
-
-  end
-
 end

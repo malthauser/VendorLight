@@ -1,0 +1,9 @@
+%p Hi,
+%p #{@user.name_or_email} has requested that you update your vendor information on VendorLight, a tool they are using to manage the different relationships that they have with vendors like yourself.
+- if @vendor.sign_in_count == 0
+  %p Please follow this link to update your information: #{link_to 'Your VendorLight Account', edit_password_url(@vendor, :reset_password_token => @vendor.reset_password_token)}
+- else
+  %p Please follow this link to update your information: #{link_to 'Your VendorLight Account', new_user_session_url}
+%p Thanks!
+%p The VendorLight Team
+%p hello@vendorlight.com

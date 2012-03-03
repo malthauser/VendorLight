@@ -33,8 +33,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  before_create { |user| user.reset_password_token = User.reset_password_token }
+
   def full_name
     "#{first_name} #{last_name}".strip 
   end
 
+  def name_or_email
+    full_name.blank? ? email : full_name
+  end
 end
