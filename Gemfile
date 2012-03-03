@@ -36,6 +36,7 @@ group :development, :test do
   gem 'hpricot'
   gem 'ruby_parser'
   gem 'annotate', '~> 2.4.1.beta'
+  gem 'mailcatcher'
 end
 
 # To use ActiveModel has_secure_password
