@@ -1,0 +1,16 @@
+.row.margin-top-80
+  .span5
+    .welcome-box
+      %h2 Have an account manager?
+      %h2 Request a quick update!
+      %br
+      = form_tag invite_path, method: 'get', class: 'form-inline' do 
+        = text_field_tag 'email', '', type: 'text', placeholder: 'Vendors email here...', required: true
+        = submit_tag 'Send Request', class: 'btn btn-primary'
+  .span2.margin-top-60.center
+    %h1 - OR - 
+  .span5
+    .welcome-box
+      %h2 Don't have a specific contact?
+      %h2 Add a vendor yourself!
+      %a.btn.btn-primary.btn-large &nbsp;&nbsp;&nbsp;&nbsp;Get Started&nbsp;&nbsp;&nbsp;&nbsp;

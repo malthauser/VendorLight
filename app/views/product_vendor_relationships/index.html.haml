@@ -1,0 +1,27 @@
+%h1 Listing product_vendor_relationships
+
+%table
+  %tr
+    %th Product
+    %th Vendor relationship
+    %th Billing date
+    %th Billing cycle quantity
+    %th Billing cycle unit
+    %th
+    %th
+    %th
+
+  - @product_vendor_relationships.each do |product_vendor_relationship|
+    %tr
+      %td= product_vendor_relationship.product_id
+      %td= product_vendor_relationship.vendor_relationship_id
+      %td= product_vendor_relationship.billing_date
+      %td= product_vendor_relationship.billing_cycle_quantity
+      %td= product_vendor_relationship.billing_cycle_unit
+      %td= link_to 'Show', product_vendor_relationship
+      %td= link_to 'Edit', edit_product_vendor_relationship_path(product_vendor_relationship)
+      %td= link_to 'Destroy', product_vendor_relationship, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Product vendor relationship', new_product_vendor_relationship_path

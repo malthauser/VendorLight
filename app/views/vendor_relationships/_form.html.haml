@@ -1,0 +1,19 @@
+= form_for @vendor_relationship do |f|
+  -if @vendor_relationship.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@vendor_relationship.errors.count, "error")} prohibited this vendor_relationship from being saved:"
+      %ul
+        - @vendor_relationship.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :user_id
+    = f.number_field :user_id
+  .field
+    = f.label :vendor_id
+    = f.number_field :vendor_id
+  .field
+    = f.label :note
+    = f.text_area :note
+  .actions
+    = f.submit 'Save'
