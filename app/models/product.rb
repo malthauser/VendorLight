@@ -18,6 +18,6 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :product_vendor_relationships
 
-  validates :retail_price, numericality: true
+  validates :retail_price, numericality: true, allow_nil: true
   validates :name, presence: true
 end

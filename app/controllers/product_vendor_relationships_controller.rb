@@ -40,7 +40,6 @@ class ProductVendorRelationshipsController < ApplicationController
     @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
     @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.find params[:id]
     @vendor = @vendor_relationship.vendor
-    binding.pry
   end
 
   # POST /product_vendor_relationships
