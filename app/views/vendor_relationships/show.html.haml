@@ -28,8 +28,10 @@
       %td
         = link_to 'View', vendor_relationship_product_vendor_relationship_path(@vendor_relationship, product_vendor_relationship), class: 'btn btn-info btn-mini'
         = link_to 'Destroy', vendor_relationship_product_vendor_relationship_path(@vendor_relationship, product_vendor_relationship), confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger btn-mini'
-        = link_to 'Edit', '#', class: 'btn btn-mini'
+        = link_to 'Edit', edit_vendor_relationship_product_vendor_relationship_path(@vendor_relationship, product_vendor_relationship), class: 'btn btn-mini'
 %br
 
+= link_to new_vendor_relationship_product_vendor_relationship_path(@vendor_relationship), :class => 'btn primary' do 
+  <i class="icon-plus icon-black"></i> Add another product
 = link_to vendor_relationships_path, :class => 'btn primary' do 
   <i class="icon-arrow-left icon-black"></i> Back

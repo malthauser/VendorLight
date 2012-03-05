@@ -1,9 +1,9 @@
 %p
   %b Product:
-  = @product_vendor_relationship.product.name
+  = @product_vendor_relationship.product.try :name
 %p
   %b Product description:
-  = @product_vendor_relationship.product.description
+  = @product_vendor_relationship.product.try :description
 %p
   %b Billing date:
   = @product_vendor_relationship.billing_date

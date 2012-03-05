@@ -28,6 +28,10 @@ class ProductVendorRelationshipsController < ApplicationController
   def new
     @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
     @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.build
+    @product = @product_vendor_relationship.build_product
+    @vendor = @vendor_relationship.vendor
+    #@vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
+    #@product_vendor_relationship = @vendor_relationship.product_vendor_relationships.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,18 +44,22 @@ class ProductVendorRelationshipsController < ApplicationController
     @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
     @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.find params[:id]
     @vendor = @vendor_relationship.vendor
-    binding.pry
   end
 
   # POST /product_vendor_relationships
   # POST /product_vendor_relationships.json
   def create
+    #@vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
+    #@product_vendor_relationship = @vendor_relationship.product_vendor_relationships.build(params[:product_vendor_relationship])
+
+    @product = Product.find params[:product_vendor_relationship].delete(:product)['id']
     @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
-    @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.build(params[:product_vendor_relationship])
+    @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.build params[:product_vendor_relationship]
+    @product_vendor_relationship.product = @product
 
     respond_to do |format|
       if @product_vendor_relationship.save
-        format.html { redirect_to @vendor_relationship, @product_vendor_relationship, notice: 'Product vendor relationship was successfully created.' }
+        format.html { redirect_to [@vendor_relationship, @product_vendor_relationship], notice: 'Product vendor relationship was successfully created.' }
         format.json { render json: @product_vendor_relationship, status: :created, location: @product_vendor_relationship }
       else
         format.html { render action: "new" }

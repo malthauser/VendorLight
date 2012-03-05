@@ -41,7 +41,12 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = current_user.products.build params[:product]
+    @vendor = User.find params[:vendor_id]
+    if @vendor.present?
+      @product = @vendor.products.build params[:product] 
+    else
+      @product = current_user.products.build params[:product] 
+    end
 
     respond_to do |format|
       if @product.save

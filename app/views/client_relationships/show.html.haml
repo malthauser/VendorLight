@@ -21,9 +21,9 @@
 
   - @client_relationship.product_vendor_relationships.each do |product_vendor_relationship|
     %tr
-      %td= product_vendor_relationship.product.name
-      %td= truncate product_vendor_relationship.product.description
-      %td= number_to_currency product_vendor_relationship.product.retail_price
+      %td= product_vendor_relationship.product.try :name
+      %td= truncate product_vendor_relationship.product.try :description
+      %td= number_to_currency product_vendor_relationship.product.try :retail_price
       %td= number_to_currency product_vendor_relationship.price_paid
       %td
         = link_to 'View', vendor_relationship_product_vendor_relationship_path(@client_relationship, product_vendor_relationship), class: 'btn btn-info btn-mini'

@@ -13,7 +13,7 @@
 
 class Product < ActiveRecord::Base
   belongs_to :user
-  has_many :product_vendor_relationships, dependent: :nullify
+  has_many :product_vendor_relationships, dependent: :destroy
   has_many :vendor_relationships, through: :product_vendor_relationships
 
   accepts_nested_attributes_for :product_vendor_relationships
