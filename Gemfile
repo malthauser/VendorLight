@@ -5,8 +5,6 @@ gem 'rails', '3.2.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -25,7 +23,7 @@ gem 'haml-rails'
 gem 'devise'
 
 group :production do 
-  gem 'heroku'
+  gem 'heroku', '2.20.1'
   gem 'pg'
 end
 
