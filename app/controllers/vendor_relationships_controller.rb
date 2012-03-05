@@ -1,4 +1,6 @@
 class VendorRelationshipsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /vendor_relationships
   # GET /vendor_relationships.json
   def index

@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /products
   # GET /products.json
   def index
@@ -41,7 +43,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @vendor = User.find params[:vendor_id]
+    @vendor = User.find params[:vendor_id] rescue nil
     if @vendor.present?
       @product = @vendor.products.build params[:product] 
     else
