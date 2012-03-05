@@ -1,0 +1,20 @@
+%h1 Clients
+%table.table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th ID
+      %th
+      %th Created at
+      %th Actions
+  %tbody
+    - @clients.each do |client|
+      %tr
+        %td= client.id
+        %td= link_to client.title, client_path(client)
+        %td= client.created_at
+        %td
+          = link_to "Show", client_path(client)
+          = link_to "Edit", edit_client_path(client)
+          = link_to "Destroy", client_path(client), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+
+= link_to "New", new_client_path, :class => 'btn btn-primary'

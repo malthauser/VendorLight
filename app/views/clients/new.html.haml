@@ -1,0 +1,2 @@
+= form_for @client, :url => clients_path, :html => { :class => :form } do |f|
+  = render :partial => "form", :locals => {:f => f}

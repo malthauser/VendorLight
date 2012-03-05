@@ -6,30 +6,29 @@
 .row
   .span1 &nbsp;
   .span10
-    =form_for @vendor do |f|
+    =form_for @vendor, url: vendors_path do |f|
       = f.label :company_name
       = f.text_field :company_name, placeholder: 'as it appears on your invoice'
-      = f.fields_for :products do |p|
+      = f.fields_for @product do |p|
         = p.label :name, 'Product'
         = p.text_field :name, placeholder: 'ex: hosting, email campaign, consulting, etc.'
-        = p.label :retail_price
-        = p.text_field :retail_price, placeholder: '$'
-        = p.fields_for :product_vendor_relationships do |g|
+        = p.fields_for @product_vendor_relationship do |g|
           = g.label :last_payment
-          = g.text_field :billing_date, class: 'date-picker', value: Time.now.strftime('%m/%d/%Y')
+          = g.text_field :billing_date, class: 'date-picker', value: Date.today.strftime('%m/%d/%Y')
           %span.add-on
             %i.icon-th
-          = g.label :billing_cycle_unit
-          = g.select 'billing_cycle_unit', ProductVendorRelationship.BILLING_CYCLE_UNIT.to_a, { :include_blank => true }
           = g.label :billing_cycle_quantity
           = g.text_field :billing_cycle_quantity
+          = g.select 'billing_cycle_unit', ProductVendorRelationship.BILLING_CYCLE_UNIT.to_a, { :include_blank => true }
+          = g.label :price_paid
+          = g.text_field :price_paid
       = f.label :contact
       = f.text_field :email, placeholder: 'email address'
       = f.text_field :first_name, placeholder: 'first name'
       = f.text_field :last_name, placeholder: 'last name'
-      = f.fields_for :vendor_relationships do |g|
+      = f.fields_for @vendor_relationship do |g|
         = g.label :note
         = g.text_field :note
-      %div
+      .form-actions
         = f.submit 'Submit!', class: 'btn btn-primary'
   .span1 &nbsp;

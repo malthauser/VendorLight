@@ -23,6 +23,7 @@ end
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'devise'
+gem 'cancan'
 
 group :production do 
   gem 'heroku'

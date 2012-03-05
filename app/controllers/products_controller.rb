@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = current_user.products
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,6 +29,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @product }
+      format.js
     end
   end
 
@@ -40,15 +41,17 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(params[:product])
+    @product = current_user.products.build params[:product]
 
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render json: @product, status: :created, location: @product }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @product.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -76,7 +79,7 @@ class ProductsController < ApplicationController
     @product.destroy
 
     respond_to do |format|
-      format.html { redirect_to products_url }
+      format.html { redirect_to user_products_url(current_user) }
       format.json { head :no_content }
     end
   end

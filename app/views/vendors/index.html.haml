@@ -5,15 +5,16 @@
     %th Name
     %th Description
     %th
+    %th
+    %th
 
   - @products.each do |product|
     %tr
       %td= product.name
       %td= truncate product.description, length: 60
-      %td
-        = link_to 'View', product, class: 'btn btn-info btn-mini'
-        = link_to 'Edit', edit_product_path(product), class: 'btn btn-mini'
-        = link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger btn-mini'
+      %td= link_to 'View', product, class: 'btn btn-info btn-mini'
+      %td= link_to 'Edit', edit_product_path(product), class: 'btn btn-mini'
+      %td= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger btn-mini'
 %br
 
 = link_to new_product_path, :class => 'btn primary' do 

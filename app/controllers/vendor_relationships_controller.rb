@@ -2,7 +2,7 @@ class VendorRelationshipsController < ApplicationController
   # GET /vendor_relationships
   # GET /vendor_relationships.json
   def index
-    @vendor_relationships = VendorRelationship.all
+    @vendor_relationships = current_user.vendor_relationships
 
     respond_to do |format|
       format.html # index.html.erb

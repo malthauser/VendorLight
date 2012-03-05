@@ -7,9 +7,10 @@
   %b Description:
   = @product.description
 %p
-  %b Cost:
-  = @product.cost
+  %b Retail Price:
+  = number_to_currency @product.retail_price
 
-= link_to 'Edit', edit_product_path(@product)
-\|
-= link_to 'Back', products_path
+= link_to edit_product_path(@product), :class => 'btn primary' do 
+  <i class="icon-pencil icon-black"></i> Edit Product
+= link_to user_products_path(current_user), :class => 'btn primary' do 
+  <i class="icon-arrow-left icon-black"></i> Back

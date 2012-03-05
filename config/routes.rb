@@ -1,9 +1,20 @@
 VendorLight::Application.routes.draw do
-  resources :product_vendor_relationships
 
-  resources :vendor_relationships
+  resources :vendor_relationships do
+    resources :product_vendor_relationships
+  end
 
-  resources :products
+  resources :products, except: :index
+
+  resources :vendors, only: [:new, :create]
+
+  resources :clients
+  resources :client_relationships
+=begin #TODO can move this to a sepea
+  resources :client_relationships do
+    resources :product_client_relationships
+  end
+=end
 
   devise_for :users, path: 'accounts'
   resource :home, only: [:show]
@@ -11,9 +22,10 @@ VendorLight::Application.routes.draw do
 
   match '/invite/(:email)' => 'invitations#invite', :as => 'invite'
 
-  resources :users, only: [:new, :create] do 
+  resources :users, only: [] do 
+    resources :products, only: [:index]
     member do
-      get 'welcome'
+      get :welcome
     end
   end
 

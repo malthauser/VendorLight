@@ -1,0 +1,4 @@
+if($('#new-product').length == 0){
+  $('body').append('<%= escape_javascript(render partial: 'modal_form') %>');
+}
+$('#new-product').modal('show');

@@ -1,23 +1,26 @@
-%h1 Listing vendor_relationships
+%h1 My vendors 
 
-%table
+%table.table.table-bordered.table-striped
   %tr
-    %th User
-    %th Vendor
-    %th Note
+    %th Company
+    %th Contact Name
+    %th Contact Email
     %th
-    %th
-    %th
+    /%th
+    /%th
+    /%th
 
   - @vendor_relationships.each do |vendor_relationship|
     %tr
-      %td= vendor_relationship.user_id
-      %td= vendor_relationship.vendor_id
-      %td= vendor_relationship.note
-      %td= link_to 'Show', vendor_relationship
-      %td= link_to 'Edit', edit_vendor_relationship_path(vendor_relationship)
-      %td= link_to 'Destroy', vendor_relationship, :confirm => 'Are you sure?', :method => :delete
-
+      %td= vendor_relationship.vendor.company_name
+      %td= vendor_relationship.vendor.full_name
+      %td= vendor_relationship.vendor.email
+      %td
+        = link_to 'View', vendor_relationship_path(vendor_relationship), class: 'btn btn-info btn-mini'
+        = link_to 'Destroy', vendor_relationship_path(vendor_relationship), confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger btn-mini'
+      /%td= link_to 'Edit', edit_product_path(product), class: 'btn btn-mini'
 %br
 
-= link_to 'New Vendor relationship', new_vendor_relationship_path
+= link_to new_vendor_path, :class => 'btn primary' do 
+  <i class="icon-plus icon-black"></i> New Vendor
+

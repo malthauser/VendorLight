@@ -1,0 +1,2 @@
+$('#product-listing').append("<%= escape_javascript("<option selected=selected value=#{@product.id}>#{@product.name}</option>".html_safe) %>");
+$('#product-listing').trigger('change');

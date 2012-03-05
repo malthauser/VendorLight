@@ -1,25 +1,40 @@
-= form_for @product_vendor_relationship do |f|
-  -if @product_vendor_relationship.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@product_vendor_relationship.errors.count, "error")} prohibited this product_vendor_relationship from being saved:"
-      %ul
-        - @product_vendor_relationship.errors.full_messages.each do |msg|
-          %li= msg
+= form_for [@vendor_relationship, @product_vendor_relationship] do |f|
+  = f.fields_for @product_vendor_relationship.product do |p|
+    = p.label :name, 'Product'
+    = p.select :id, @vendor.products.all.collect { |p| [p.name, p.id] }, {}, id: 'product-listing'
+    %a{ data: { toggle: 'modal' }, href: '#new-product' } Add new product
+  = f.label :last_payment
+  = f.text_field :billing_date, class: 'date-picker', value: Time.now.strftime('%m/%d/%Y')
+  %span.add-on
+    %i.icon-th
+  = f.label :billing_cycle_quantity
+  = f.text_field :billing_cycle_quantity
+  = f.select :billing_cycle_unit, ProductVendorRelationship.BILLING_CYCLE_UNIT.to_a, { :include_blank => true }
+  = f.label :price_paid
+  = f.text_field :price_paid
+  .form-actions
+    = f.submit 'Save', class: 'btn btn-primary'
 
-  .field
-    = f.label :product_id
-    = f.number_field :product_id
-  .field
-    = f.label :vendor_relationship_id
-    = f.number_field :vendor_relationship_id
-  .field
-    = f.label :billing_date
-    = f.date_select :billing_date
-  .field
-    = f.label :billing_cycle_quantity
-    = f.number_field :billing_cycle_quantity
-  .field
-    = f.label :billing_cycle_unit
-    = f.number_field :billing_cycle_unit
-  .actions
-    = f.submit 'Save'
+- @product = Product.new 
+= form_for @product, remote: true do |f|
+  .modal#new-product{ style: 'display:none' }
+    .modal-header
+      %a.close{ data: { dismiss: "modal" } } ×
+      %h3 New Product
+    .modal-body
+      -if @product.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@product.errors.count, "error")} prohibited this customer from being saved:"
+          %ul
+            - @product.errors.full_messages.each do |msg|
+              %li= msg
+      = f.label :name
+      = f.text_field :name
+      = f.label :description
+      = f.text_area :description, rows: 5
+      = f.label :retail_price
+      = f.text_field :retail_price
+    .modal-footer
+      .form-actions
+        = f.submit 'Save', class: 'btn btn-primary close-modal'
+

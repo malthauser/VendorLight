@@ -8,6 +8,7 @@
 #  billing_date           :date
 #  billing_cycle_quantity :integer(4)
 #  billing_cycle_unit     :integer(4)
+#  price_paid             :float
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
 #
@@ -19,7 +20,8 @@ class ProductVendorRelationship < ActiveRecord::Base
   validates :billing_cycle_quantity, numericality: { :only_integer => true }
 
   cattr_reader :BILLING_CYCLE_UNIT
-  @@BILLING_CYCLE_UNIT = { daily: 1, weekly: 2, monthly: 3, yearly: 4 } 
+  @@BILLING_CYCLE_UNIT = { days: 1, weeks: 2, months: 3, years: 4 }
+  @@BILLING_CYCLE_UNIT.freeze
 
   @@BILLING_CYCLE_UNIT.each_key do |unit|
     define_method (unit.to_s + '?').to_sym do
@@ -27,13 +29,14 @@ class ProductVendorRelationship < ActiveRecord::Base
     end
   end
 
-  def billing_cycle_unit
+  def billing_cycle_unit_label
     unit = read_attribute(:billing_cycle_unit)
     @@BILLING_CYCLE_UNIT.each_pair do |key, val|
       if val == unit
         return key.to_s
       end
-      return nil
     end
+    return nil
   end
+
 end

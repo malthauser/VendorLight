@@ -24,7 +24,9 @@ class User < ActiveRecord::Base
 
   has_many :products, dependent: :destroy
   has_many :vendor_relationships, dependent: :destroy
-  has_many :vendors, through: :vendor_relationships
+  has_many :vendors, through: :vendor_relationships, foreign_key: :vendor_id
+  has_many :client_relationships, class_name: 'VendorRelationship', foreign_key: :vendor_id
+  has_many :clients, through: :client_relationships, foreign_key: :user_id
 
   validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true
@@ -46,4 +48,5 @@ class User < ActiveRecord::Base
   def name_or_email
     full_name.blank? ? email : full_name
   end
+
 end

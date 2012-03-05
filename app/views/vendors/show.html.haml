@@ -1,0 +1,32 @@
+%p
+  %b Vendor:
+  = @vendor_relationship.vendor.name
+%p
+  %b Contact
+  = "#{@vendor_relationship.vendor.full_name} - #{@vendor_relationship.vendor.email}"
+%p
+  %b Note
+  = @vendor_relationship.note
+
+%h3 Products you use from this vendor
+%table.table.table-bordered.table-striped
+  %tr
+    %th Name
+    %th Description
+    %th Retail Price
+    %th Price Paid
+    %th
+    %th
+
+  - @vendor_relationship.product_vendor_relationships.each do |product_vendor_relationship|
+    %tr
+      %td= product_vendor_relationship.product.name
+      %td= truncate product_vendor_relationship.product.description, length: 60
+      %td= number_to_currency product_vendor_relationship.product.retail_price
+      %td= number_to_currency product_vendor_relationship.price_paid
+      %td= link_to 'Edit', edit_product_vendor_relationship_path(product_vendor_relationship), class: 'btn btn-mini'
+      %td= link_to 'Remove this product', product_vendor_relationship, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger btn-mini'
+%br
+
+= link_to new_product_vendor_relationships_path(current_user), :class => 'btn primary' do 
+  <i class="icon-arrow-left icon-black"></i> Back

@@ -17,6 +17,9 @@
 //
 
 $(function(){
-  console.log($('.date-picker'));
   $('.date-picker').datepicker();
+  $('#new-product').modal('hide');
+  $('.close-modal').live('click', function(){
+    $('.modal').modal('hide');
+  })
 })

@@ -8,6 +8,7 @@
 #  billing_date           :date
 #  billing_cycle_quantity :integer(4)
 #  billing_cycle_unit     :integer(4)
+#  price_paid             :float
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
 #

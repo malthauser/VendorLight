@@ -6,6 +6,7 @@ class CreateProductVendorRelationships < ActiveRecord::Migration
       t.date :billing_date
       t.integer :billing_cycle_quantity
       t.integer :billing_cycle_unit
+      t.float :price_paid
 
       t.timestamps
     end

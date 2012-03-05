@@ -1,0 +1,9 @@
+= form_for @client_relationship do |f|
+  = f.label :user_id
+  = f.number_field :user_id
+  = f.label :vendor_id
+  = f.number_field :vendor_id
+  = f.label :note
+  = f.text_area :note
+  .form-actions
+    = f.submit 'Save'

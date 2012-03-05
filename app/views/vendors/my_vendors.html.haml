@@ -1,0 +1,23 @@
+%h1 My vendors 
+
+%table.table.table-bordered.table-striped
+  %tr
+    %th Company
+    %th Name
+    %th Note
+    %th
+    %th
+    %th
+    /%th
+    /%th
+
+  - @vendor_relationships.each do |vendor_relationship|
+    %tr
+      %td= vendor_relationship.vendor.company_name
+      %td= vendor_relationship.vendor.full_name
+      %td= truncate vendor_relationship.note, length: 60
+      %td= link_to 'View', product, class: 'btn btn-info btn-mini'
+      %td= link_to 'Destroy', vendor.vendor_relationship, confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger btn-mini'
+      /%td= link_to 'Edit', edit_product_path(product), class: 'btn btn-mini'
+%br
+

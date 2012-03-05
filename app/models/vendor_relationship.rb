@@ -12,5 +12,7 @@
 
 class VendorRelationship < ActiveRecord::Base
   belongs_to :user
-  belongs_to :vendor, class_name: :user
+  belongs_to :vendor, class_name: 'User'
+  belongs_to :client, class_name: 'User', foreign_key: 'user_id'
+  has_many :product_vendor_relationships
 end

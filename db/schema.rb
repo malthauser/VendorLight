@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20120303104806) do
     t.date     "billing_date"
     t.integer  "billing_cycle_quantity"
     t.integer  "billing_cycle_unit"
+    t.float    "price_paid"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
   end
@@ -26,10 +27,10 @@ ActiveRecord::Schema.define(:version => 20120303104806) do
   create_table "products", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.float    "cost"
+    t.float    "retail_price"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "users", :force => true do |t|

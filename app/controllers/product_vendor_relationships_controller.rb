@@ -2,7 +2,8 @@ class ProductVendorRelationshipsController < ApplicationController
   # GET /product_vendor_relationships
   # GET /product_vendor_relationships.json
   def index
-    @product_vendor_relationships = ProductVendorRelationship.all
+    @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
+    @product_vendor_relationships = @vendor_relationship.product_vendor_relationships
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +14,8 @@ class ProductVendorRelationshipsController < ApplicationController
   # GET /product_vendor_relationships/1
   # GET /product_vendor_relationships/1.json
   def show
-    @product_vendor_relationship = ProductVendorRelationship.find(params[:id])
+    @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
+    @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +26,8 @@ class ProductVendorRelationshipsController < ApplicationController
   # GET /product_vendor_relationships/new
   # GET /product_vendor_relationships/new.json
   def new
-    @product_vendor_relationship = ProductVendorRelationship.new
+    @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
+    @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,17 +37,21 @@ class ProductVendorRelationshipsController < ApplicationController
 
   # GET /product_vendor_relationships/1/edit
   def edit
-    @product_vendor_relationship = ProductVendorRelationship.find(params[:id])
+    @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
+    @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.find params[:id]
+    @vendor = @vendor_relationship.vendor
+    binding.pry
   end
 
   # POST /product_vendor_relationships
   # POST /product_vendor_relationships.json
   def create
-    @product_vendor_relationship = ProductVendorRelationship.new(params[:product_vendor_relationship])
+    @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
+    @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.build(params[:product_vendor_relationship])
 
     respond_to do |format|
       if @product_vendor_relationship.save
-        format.html { redirect_to @product_vendor_relationship, notice: 'Product vendor relationship was successfully created.' }
+        format.html { redirect_to @vendor_relationship, @product_vendor_relationship, notice: 'Product vendor relationship was successfully created.' }
         format.json { render json: @product_vendor_relationship, status: :created, location: @product_vendor_relationship }
       else
         format.html { render action: "new" }
@@ -56,11 +63,14 @@ class ProductVendorRelationshipsController < ApplicationController
   # PUT /product_vendor_relationships/1
   # PUT /product_vendor_relationships/1.json
   def update
-    @product_vendor_relationship = ProductVendorRelationship.find(params[:id])
+    @product = Product.find params[:product_vendor_relationship].delete(:product)['id']
+    @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
+    @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.find params[:id]
+    @product_vendor_relationship.product = @product
 
     respond_to do |format|
       if @product_vendor_relationship.update_attributes(params[:product_vendor_relationship])
-        format.html { redirect_to @product_vendor_relationship, notice: 'Product vendor relationship was successfully updated.' }
+        format.html { redirect_to [@vendor_relationship, @product_vendor_relationship], notice: 'Product vendor relationship was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -72,11 +82,16 @@ class ProductVendorRelationshipsController < ApplicationController
   # DELETE /product_vendor_relationships/1
   # DELETE /product_vendor_relationships/1.json
   def destroy
-    @product_vendor_relationship = ProductVendorRelationship.find(params[:id])
-    @product_vendor_relationship.destroy
+    @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
+    @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.find params[:id]
+    if @product_vendor_relationship.destroy
+      flash[:alert] = 'Vendor relationship successfully destroyed'
+    else
+      flash[:error] = 'There was an error destroying the relationship'
+    end
 
     respond_to do |format|
-      format.html { redirect_to product_vendor_relationships_url }
+      format.html { redirect_to vendor_relationships_path }
       format.json { head :no_content }
     end
   end
