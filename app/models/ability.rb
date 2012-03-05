@@ -5,7 +5,7 @@ class Ability
     can [:update, :destroy], Product, user_id: user.id
     can [:read, :create], Product
     can :manage, VendorRelationship, user_id: user.id
-    can :manage, User, user_id: user.id
+    can :manage, User, id: user.id
     can :create, User 
     
     # Define abilities for the passed in user here. For example:
