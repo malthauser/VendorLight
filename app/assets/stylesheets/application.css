@@ -61,3 +61,6 @@ body{
   padding-top: 80px;
 }
 
+.field_with_errors{
+  display: inline
+}
