@@ -21,6 +21,7 @@
 #
 
 class User < ActiveRecord::Base
+  include ActiveSupport
 
   has_many :products, dependent: :destroy
   has_many :vendor_relationships, dependent: :destroy
@@ -39,7 +40,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  before_create { |user| user.reset_password_token = User.reset_password_token }
+  before_validation :set_reset_token, :set_password
 
   def full_name
     "#{first_name} #{last_name}".strip 
@@ -47,6 +48,21 @@ class User < ActiveRecord::Base
 
   def name_or_email
     full_name.blank? ? email : full_name
+  end
+
+  private
+  def set_reset_token
+    unless self.reset_password_token.present?
+      self.reset_password_token = User.reset_password_token 
+      self.reset_password_sent_at = Time.now
+    end
+  end
+
+  def set_password
+    unless self.encrypted_password.present? || self.password.present?
+      pass = SecureRandom.hex(8)
+      self.attributes = { password: pass, password_confirmation: pass }
+    end
   end
 
 end

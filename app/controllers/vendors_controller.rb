@@ -45,15 +45,16 @@ class VendorsController < ApplicationController
     vendor_relationship_params = params[:user].delete :vendor_relationship
     user_param = params[:user]
 
-    @vendor = current_user.vendors.build user_param
+    @vendor = User.find_by_email(user_param[:email]) || current_user.vendors.build(user_param)
     @vendor_relationship = current_user.vendor_relationships.build vendor_relationship_params
     @vendor_relationship.vendor = @vendor 
     @product = @vendor.products.build product_params
     @product_vendor_relationship = @product.product_vendor_relationships.build product_vendor_relationship_params
     @product_vendor_relationship.vendor_relationship = @vendor_relationship
 
-    if @vendor.save(validate: false)
-      flash[:notice] = "A new vendor has been created and a request has been sent for him to verify the details" 
+    if @vendor.save
+      UserMailer.invite(current_user, @vendor).deliver!
+      flash[:notice] = "A new vendor has been created and a request has been sent to them to verify the details"
       redirect_to welcome_user_path(current_user)
     else
       flash.now[:error] = @vendor.errors.full_messages
