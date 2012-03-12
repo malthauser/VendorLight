@@ -44,11 +44,7 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @vendor = User.find params[:vendor_id] rescue nil
-    if @vendor.present?
-      @product = @vendor.products.build params[:product] 
-    else
-      @product = current_user.products.build params[:product] 
-    end
+    @product = (@vendor.present? ? @vendor.products.build(params[:product]) : current_user.products.build(params[:product]))
 
     respond_to do |format|
       if @product.save
@@ -56,7 +52,7 @@ class ProductsController < ApplicationController
         format.json { render json: @product, status: :created, location: @product }
         format.js
       else
-        format.html { render action: "new" }
+        format.html { render action: "new", alert: @product.errors.full_messages.first }
         format.json { render json: @product.errors, status: :unprocessable_entity }
         format.js
       end
@@ -73,6 +69,7 @@ class ProductsController < ApplicationController
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { head :no_content }
       else
+        flash[:alert] = @product.errors.full_messages.first
         format.html { render action: "edit" }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end

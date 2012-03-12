@@ -26,6 +26,7 @@ VendorLight::Application.routes.draw do
     resources :products, only: [:index]
     member do
       get :welcome
+      get :vendor_request
     end
   end
 

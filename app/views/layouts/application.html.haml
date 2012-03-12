@@ -40,7 +40,7 @@
               - else
                 %li.dropdown
                   %a.dropdown-toggle{ 'data-toggle' => 'dropdown' }
-                    = current_user.full_name
+                    = current_user.full_name.blank? ? current_user.email : current_user.full_name
                     %b.caret
                   %ul.dropdown-menu
                     %li
