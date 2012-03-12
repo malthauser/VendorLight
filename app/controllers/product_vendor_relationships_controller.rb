@@ -54,6 +54,7 @@ class ProductVendorRelationshipsController < ApplicationController
 
     @product = Product.find params[:product_vendor_relationship].delete(:product)['id']
     @vendor_relationship = VendorRelationship.find params[:vendor_relationship_id]
+    @vendor = @vendor_relationship.vendor
     @product_vendor_relationship = @vendor_relationship.product_vendor_relationships.build params[:product_vendor_relationship]
     @product_vendor_relationship.product = @product
 
@@ -62,6 +63,7 @@ class ProductVendorRelationshipsController < ApplicationController
         format.html { redirect_to [@vendor_relationship, @product_vendor_relationship], notice: 'Product vendor relationship was successfully created.' }
         format.json { render json: @product_vendor_relationship, status: :created, location: @product_vendor_relationship }
       else
+        flash[:error] = @product_vendor_relationship.errors.full_messages
         format.html { render action: "new" }
         format.json { render json: @product_vendor_relationship.errors, status: :unprocessable_entity }
       end

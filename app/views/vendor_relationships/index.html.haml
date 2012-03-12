@@ -5,10 +5,7 @@
     %th Company
     %th Contact Name
     %th Contact Email
-    %th
-    /%th
-    /%th
-    /%th
+    %th Actions
 
   - @vendor_relationships.each do |vendor_relationship|
     %tr
@@ -23,4 +20,7 @@
 
 = link_to new_vendor_path, :class => 'btn primary' do 
   <i class="icon-plus icon-black"></i> New Vendor
+
+= link_to vendor_request_user_path(current_user), :class => 'btn primary' do 
+  <i class="icon-plus icon-black"></i> Request Vendor
 

@@ -29,18 +29,20 @@ class User < ActiveRecord::Base
   has_many :client_relationships, class_name: 'VendorRelationship', foreign_key: :vendor_id
   has_many :clients, through: :client_relationships, foreign_key: :user_id
 
-  validates :first_name, :last_name, :email, presence: true
+  validates :email, presence: true
+  #validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true
 
   accepts_nested_attributes_for :products
   accepts_nested_attributes_for :vendor_relationships
+  accepts_nested_attributes_for :client_relationships
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  before_validation :set_reset_token, :set_password
+  before_create :set_reset_token, :set_password
 
   def full_name
     "#{first_name} #{last_name}".strip 
