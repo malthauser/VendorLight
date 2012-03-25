@@ -1,7 +1,3 @@
-%h1 Editing vendor_relationship
+%h1= "#{@client_relationship.user.full_name} has requested you to update your information"
 
 = render 'form'
-
-= link_to 'Show', @vendor_relationship
-\|
-= link_to 'Back', vendor_relationships_path

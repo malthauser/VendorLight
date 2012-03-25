@@ -18,6 +18,7 @@
 #  first_name             :string(255)
 #  last_name              :string(255)
 #  company_name           :string(255)
+#  pending                :boolean(1)      default(FALSE)
 #
 
 class User < ActiveRecord::Base
@@ -28,6 +29,7 @@ class User < ActiveRecord::Base
   has_many :vendors, through: :vendor_relationships, foreign_key: :vendor_id
   has_many :client_relationships, class_name: 'VendorRelationship', foreign_key: :vendor_id
   has_many :clients, through: :client_relationships, foreign_key: :user_id
+  has_many :pending_forms
 
   validates :email, presence: true
   #validates :first_name, :last_name, :email, presence: true
@@ -42,7 +44,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  before_create :set_reset_token, :set_password
+  #before_create :set_reset_token, :set_password
 
   def full_name
     "#{first_name} #{last_name}".strip 

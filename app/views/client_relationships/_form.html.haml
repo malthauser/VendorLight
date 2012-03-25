@@ -1,9 +1,24 @@
-= form_for @client_relationship do |f|
-  = f.label :user_id
-  = f.number_field :user_id
-  = f.label :vendor_id
-  = f.number_field :vendor_id
-  = f.label :note
-  = f.text_area :note
+=form_for @vendor, url: client_relationships_path, :method => :post do |f|
+  = hidden_field_tag :client_relationship_id, @client_relationship.id
+  = f.fields_for @product do |p|
+    = p.label :name, 'Product'
+    = p.text_field :name, placeholder: 'ex: hosting, email campaign, consulting, etc.'
+    = p.label :description
+    = p.text_area :description
+    = p.label :retail_price
+    = p.text_field :retail_price
+    = p.fields_for @product_vendor_relationship do |g|
+      = g.label :last_payment
+      = g.text_field :billing_date, class: 'date-picker', value: Date.today.strftime('%m/%d/%Y')
+      %span.add-on
+        %i.icon-th
+      = g.label :billing_cycle_quantity
+      = g.text_field :billing_cycle_quantity
+      = g.select 'billing_cycle_unit', ProductVendorRelationship.BILLING_CYCLE_UNIT.to_a, { :include_blank => true }
+      = g.label :price_paid
+      = g.text_field :price_paid
+  = f.fields_for @client_relationship do |g|
+    = g.label :note
+    = g.text_field :note
   .form-actions
-    = f.submit 'Save'
+    = f.submit 'Submit!', class: 'btn btn-primary'

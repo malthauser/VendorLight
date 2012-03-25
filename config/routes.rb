@@ -16,7 +16,7 @@ VendorLight::Application.routes.draw do
   end
 =end
 
-  devise_for :users, path: 'accounts'
+  devise_for :users, path: 'accounts', controllers: { registrations: 'accounts/registrations' }
   resource :home, only: [:show]
   root to: 'home#show'
 
@@ -27,6 +27,7 @@ VendorLight::Application.routes.draw do
     member do
       get :welcome
       get :vendor_request
+      get :edit
     end
   end
 

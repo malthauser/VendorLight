@@ -12,4 +12,9 @@ class UsersController < ApplicationController
 
   def my_account
   end
+
+  def edit
+    redirect_to edit_user_registration_path(current_user, relationship_id: params[:relationship_id])
+  end
+
 end

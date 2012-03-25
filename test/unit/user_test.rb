@@ -18,6 +18,7 @@
 #  first_name             :string(255)
 #  last_name              :string(255)
 #  company_name           :string(255)
+#  pending                :boolean(1)      default(FALSE)
 #
 
 require 'test_helper'

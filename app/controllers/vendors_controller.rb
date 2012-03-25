@@ -47,25 +47,32 @@ class VendorsController < ApplicationController
 
     @vendor = User.find_by_email(user_param[:email]) || current_user.vendors.build(user_param)
     if @vendor.new_record?
-      @vendor.password = User.reset_password_token
-      @vendor.reset_password_token = User.reset_password_token
-      @vendor.reset_password_sent_at = Time.now
+      @pass = SecureRandom.hex(8)
+      @vendor.password = @pass
+      @vendor.password_confirmation = @pass
       @vendor_relationship = current_user.vendor_relationships.build vendor_relationship_params
       @vendor_relationship.vendor = @vendor 
+      @case = 1  
     elsif current_user.vendors.find_by_id(@vendor.id).present? #means that this vendor relationship already exists
       @vendor_relationship = current_user.vendor_relationships.find_by_vendor_id(@vendor.id)
+      @case = 1
     else
       @vendor_relationship = current_user.vendor_relationships.build vendor_relationship_params
       @vendor_relationship.vendor = @vendor 
+      @case = 3
     end
     @product = @vendor.products.build product_params
     @product_vendor_relationship = @product.product_vendor_relationships.build product_vendor_relationship_params
     @product_vendor_relationship.vendor_relationship = @vendor_relationship
 
     if @vendor.save
-      UserMailer.invite(current_user, @vendor).deliver!
+      if @case == 1
+        UserMailer.request_and_invite(current_user, @vendor, @pass, nil).deliver! 
+      else
+        UserMailer.notify(current_user, @vendor, @vendor_relationship).deliver!
+      end
       flash[:notice] = "A new vendor has been created and a request has been sent to them to verify the details"
-      redirect_to welcome_user_path(current_user)
+      redirect_to vendor_relationships_path
     else 
       flash[:error] = @vendor.errors.full_messages
       render :action => 'new'

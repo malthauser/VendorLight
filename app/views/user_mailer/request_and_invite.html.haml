@@ -1,0 +1,12 @@
+%strong Hi,
+%p #{@user.name_or_email} has requested that you update your vendor information on VendorLight, a tool they are using to manage the different relationships that they have with vendors like yourself.
+%p You password is: #{@password}
+%p Please use your email to sign in and fill out the required information
+- if @relationship_id.nil?
+  %p Please follow this link to update your information: #{link_to 'Your VendorLight Account', edit_user_url(@vendor)}
+- else
+  %p Please follow this link to update your information: #{link_to 'Your VendorLight Account', edit_user_url(@vendor, relationship_id: @relationship_id)}
+%br
+%p Thanks!
+%p The VendorLight Team
+%p hello@vendorlight.com

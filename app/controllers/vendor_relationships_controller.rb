@@ -36,7 +36,11 @@ class VendorRelationshipsController < ApplicationController
 
   # GET /vendor_relationships/1/edit
   def edit
+    #TODO currently using this method to be used only with clients
     @vendor_relationship = VendorRelationship.find(params[:id])
+    @vendor = current_user
+    @product = current_user.products.build
+    @product_vendor_relationship = @product.product_vendor_relationships.build
   end
 
   # POST /vendor_relationships

@@ -11,11 +11,10 @@
     %tr
       %td= vendor_relationship.vendor.company_name
       %td= vendor_relationship.vendor.full_name
-      %td= vendor_relationship.vendor.email
+      %td= vendor_relationship.product_vendor_relationships.blank? ? "#{vendor_relationship.vendor.email}(pending)" : "#{vendor_relationship.vendor.email}"
       %td
         = link_to 'View', vendor_relationship_path(vendor_relationship), class: 'btn btn-info btn-mini'
         = link_to 'Destroy', vendor_relationship_path(vendor_relationship), confirm: 'Are you sure?', method: :delete, class: 'btn btn-danger btn-mini'
-      /%td= link_to 'Edit', edit_product_path(product), class: 'btn btn-mini'
 %br
 
 = link_to new_vendor_path, :class => 'btn primary' do 
@@ -23,4 +22,3 @@
 
 = link_to vendor_request_user_path(current_user), :class => 'btn primary' do 
   <i class="icon-plus icon-black"></i> Request Vendor
-
